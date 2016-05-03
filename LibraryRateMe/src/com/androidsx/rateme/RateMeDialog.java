@@ -277,8 +277,21 @@ public class RateMeDialog extends DialogFragment {
                 dismiss();
                 if(ratingBar.getRating()>0) {
                     RateMeDialogTimer.setOptOut(getActivity(), true);
-
-
+                }
+                if(ratingBar.getRating()>3) {
+                    DialogFragment dialogMail = FeedbackDialog.newInstance(feedbackEmail,
+                            appName,
+                            headerBackgroundColor,
+                            bodyBackgroundColor,
+                            headerTextColor,
+                            bodyTextColor,
+                            appIconResId,
+                            lineDividerColor,
+                            rateButtonTextColor,
+                            rateButtonBackgroundColor,
+                            ratingBar.getRating(),
+                            onRatingListener);
+                    dialogMail.show(getFragmentManager(), "feedbackByEmailEnabled");
                 }
             }
         });

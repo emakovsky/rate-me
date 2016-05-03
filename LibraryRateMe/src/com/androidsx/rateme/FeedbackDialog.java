@@ -90,7 +90,6 @@ public class FeedbackDialog extends DialogFragment {
         cancel.setOnClickListener(new View.OnClickListener()  {
             public void onClick(View v) {
                 dismiss();
-                onActionListener.onRating(OnRatingListener.RatingAction.LOW_RATING_REFUSED_TO_GIVE_FEEDBACK, getArguments().getFloat(EXTRA_RATING_BAR));
                 Log.d(TAG, "Canceled the feedback dialog");
             }
         });  
@@ -98,8 +97,7 @@ public class FeedbackDialog extends DialogFragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToMail(getArguments().getString(EXTRA_APP_NAME));
-                onActionListener.onRating(OnRatingListener.RatingAction.LOW_RATING_GAVE_FEEDBACK, getArguments().getFloat(EXTRA_RATING_BAR));
+                rateApp();
                 Log.d(TAG, "Agreed to provide feedback");
                 dismiss();
             }
@@ -132,9 +130,9 @@ public class FeedbackDialog extends DialogFragment {
 
     private void rateApp() {
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_CONSTANT + appPackageName)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_CONSTANT + getActivity().getPackageName())));
         } catch (android.content.ActivityNotFoundException anfe) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_CONSTANT + appPackageName)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_CONSTANT + getActivity().getPackageName())));
         }
     }
     

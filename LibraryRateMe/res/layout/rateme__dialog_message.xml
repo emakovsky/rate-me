@@ -68,7 +68,7 @@
             android:id="@+id/buttonNeverAsk"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textSize="@dimen/rateme__text_size"
             android:text="@string/rateme__dialog_never" />
 
@@ -76,9 +76,9 @@
             android:id="@+id/buttonNotNow"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="right|center_vertical"
             android:textSize="@dimen/rateme__text_size"
             android:text="@string/rateme__dialog_not_now" />
 
@@ -86,7 +86,7 @@
             android:id="@+id/buttonOk"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textSize="@dimen/rateme__text_size"
             android:text="@android:string/ok" />
 
