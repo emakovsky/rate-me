@@ -3,12 +3,10 @@ package com.androidsx.rateme;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,8 +24,7 @@ import com.androidsx.libraryrateme.R;
 public class RateMeDialog extends DialogFragment {
     private static final String TAG = RateMeDialog.class.getSimpleName();
 
-    private static final String MARKET_CONSTANT = "market://details?id=";
-    private static final String GOOGLE_PLAY_CONSTANT = "http://play.google.com/store/apps/details?id=";
+
 
     private final static String RESOURCE_NAME = "titleDivider";
     private final static String DEFAULT_TYPE_RESOURCE = "id";
@@ -39,8 +36,9 @@ public class RateMeDialog extends DialogFragment {
     private Button close;
     private RatingBar ratingBar;
     private LayerDrawable stars;
-    private Button rateMe;
-    private Button noThanks;
+    private Button buttonNeverAsk;
+    private Button buttonNotNow;
+    private Button buttonOk;
     private Button share;
 
     // Configuration. It all comes from the builder. On, on resume, from the saved bundle
@@ -122,16 +120,6 @@ public class RateMeDialog extends DialogFragment {
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if (rating >= 4.0) {
-                    rateMe.setVisibility(View.VISIBLE);
-                    noThanks.setVisibility(View.GONE);
-                } else if (rating > 0.0){
-                    noThanks.setVisibility(View.VISIBLE);
-                    rateMe.setVisibility(View.GONE);
-                } else {
-                    noThanks.setVisibility(View.GONE);
-                    rateMe.setVisibility(View.GONE);
-                }
                 defaultStarsSelected = (int) rating;
             }
         });
@@ -160,7 +148,6 @@ public class RateMeDialog extends DialogFragment {
             share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(shareApp(appPackageName));
                     Log.d(TAG, "Share the application");
                     onRatingListener.onRating(OnRatingListener.RatingAction.SHARED_APP, ratingBar.getRating());
 
@@ -242,8 +229,9 @@ public class RateMeDialog extends DialogFragment {
         tView = View.inflate(getActivity(), R.layout.rateme__dialog_title, null);
         close = (Button) tView.findViewById(R.id.buttonClose);
         share = (Button) tView.findViewById(R.id.buttonShare);
-        rateMe = (Button) mView.findViewById(R.id.buttonRateMe);
-        noThanks = (Button) mView.findViewById(R.id.buttonThanks);
+        buttonNeverAsk = (Button) mView.findViewById(R.id.buttonNeverAsk);
+        buttonNotNow = (Button) mView.findViewById(R.id.buttonNotNow);
+        buttonOk = (Button) mView.findViewById(R.id.buttonOk);
         ratingBar = (RatingBar) mView.findViewById(R.id.ratingBar);
         stars = (LayerDrawable) ratingBar.getProgressDrawable();
         mView.setBackgroundColor(bodyBackgroundColor);
@@ -258,71 +246,42 @@ public class RateMeDialog extends DialogFragment {
         }
         ((TextView) mView.findViewById(R.id.rating_dialog_message)).setTextColor(bodyTextColor);
 
-        rateMe.setBackgroundColor(rateButtonBackgroundColor);
-        noThanks.setBackgroundColor(rateButtonBackgroundColor);
-        rateMe.setTextColor(rateButtonTextColor);
-        noThanks.setTextColor(rateButtonTextColor);
+        buttonNeverAsk.setBackgroundColor(rateButtonBackgroundColor);
+        buttonNotNow.setBackgroundColor(rateButtonBackgroundColor);
+        buttonOk.setBackgroundColor(rateButtonBackgroundColor);
+        buttonNeverAsk.setTextColor(rateButtonTextColor);
+        buttonNotNow.setTextColor(rateButtonTextColor);
+        buttonOk.setTextColor(rateButtonTextColor);
 
     }
 
     private void configureButtons() {
-        rateMe.setOnClickListener(new View.OnClickListener() {
+        buttonNeverAsk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rateApp();
-                Log.d(TAG, "Yes: open the Google Play Store");
+                dismiss();
                 RateMeDialogTimer.setOptOut(getActivity(), true);
-                onRatingListener.onRating(OnRatingListener.RatingAction.HIGH_RATING_WENT_TO_GOOGLE_PLAY, ratingBar.getRating());
+            }
+        });
+
+        buttonNotNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dismiss();
             }
         });
 
-        noThanks.setOnClickListener(new View.OnClickListener() {
+        buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (feedbackByEmailEnabled) {
-                    DialogFragment dialogMail = FeedbackDialog.newInstance(feedbackEmail,
-                            appName,
-                            headerBackgroundColor,
-                            bodyBackgroundColor,
-                            headerTextColor,
-                            bodyTextColor,
-                            appIconResId,
-                            lineDividerColor,
-                            rateButtonTextColor,
-                            rateButtonBackgroundColor,
-                            ratingBar.getRating(),
-                            onRatingListener);
-                    dialogMail.show(getFragmentManager(), "feedbackByEmailEnabled");
-                    dismiss();
-                    Log.d(TAG, "No: open the feedback dialog");
-                } else {
-                    dismiss();
-                    onRatingListener.onRating(OnRatingListener.RatingAction.LOW_RATING, ratingBar.getRating());
+                dismiss();
+                if(ratingBar.getRating()>0) {
+                    RateMeDialogTimer.setOptOut(getActivity(), true);
+
+
                 }
-                RateMeDialogTimer.setOptOut(getActivity(), true);
             }
         });
-    }
-
-    private void rateApp() {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_CONSTANT + appPackageName)));
-        } catch (android.content.ActivityNotFoundException anfe) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_CONSTANT + appPackageName)));
-        }
-    }
-
-    private Intent shareApp(String appPackageName) {
-        Intent shareApp = new Intent();
-        shareApp.setAction(Intent.ACTION_SEND);
-        try {
-            shareApp.putExtra(Intent.EXTRA_TEXT, MARKET_CONSTANT + appPackageName);
-        } catch (android.content.ActivityNotFoundException anfe) {
-            shareApp.putExtra(Intent.EXTRA_TEXT, GOOGLE_PLAY_CONSTANT + appPackageName);
-        }
-        shareApp.setType("text/plain");
-        return shareApp;
     }
 
     private void setIconsTitleColor(int colorClose, int colorShare) {

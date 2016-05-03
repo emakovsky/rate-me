@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,9 @@ import com.androidsx.libraryrateme.R;
  */
 public class FeedbackDialog extends DialogFragment {
     private static final String TAG = FeedbackDialog.class.getSimpleName();
+
+    private static final String MARKET_CONSTANT = "market://details?id=";
+    private static final String GOOGLE_PLAY_CONSTANT = "http://play.google.com/store/apps/details?id=";
     
     private static final String EXTRA_EMAIL = "email";
     private static final String EXTRA_APP_NAME = "app-name";
@@ -124,6 +128,14 @@ public class FeedbackDialog extends DialogFragment {
         cancel.setBackgroundColor(getArguments().getInt(EXTRA_RATE_BUTTON_BG_COLOR));
         yes.setBackgroundColor(getArguments().getInt(EXTRA_RATE_BUTTON_BG_COLOR));
         onActionListener = getArguments().getParcelable(EXTRA_ON_ACTION_LISTENER);
+    }
+
+    private void rateApp() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_CONSTANT + appPackageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_CONSTANT + appPackageName)));
+        }
     }
     
     private void goToMail(String appName) {

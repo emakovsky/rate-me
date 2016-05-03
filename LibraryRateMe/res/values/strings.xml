@@ -7,4 +7,7 @@
     <string name="rateme__dialog_feedback_message">Would you mind sharing your feedback?</string>
     <string name="rateme__email_subject">Feedback for %1$s</string>
     <string name="rateme__icon_content_description">Icon</string>
+
+    <string name="rateme__dialog_never">Never ask</string>
+    <string name="rateme__dialog_not_now">Not now</string>
 </resources>

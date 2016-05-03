@@ -1,12 +1,12 @@
 package com.androidsx.rateme;
 
-import java.util.Date;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
+
+import java.util.Date;
 
 /**
  * Timer to schedule the rate-me after a number of application launches.
@@ -95,6 +95,7 @@ public class RateMeDialogTimer {
      * Set opt out flag. If it is true, the rate dialog will never shown unless app data is cleared.
      */
     public static void setOptOut(final Context context, boolean optOut) {
+        Log.d("test", "setOptOut: " + optOut);
         SharedPreferences pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         Editor editor = pref.edit();
         editor.putBoolean(KEY_OPT_OUT, optOut);
