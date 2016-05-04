@@ -1,94 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/rateme__default_padding"
-    android:layout_margin="@dimen/rateme__default_padding"
-    tools:background="#77FFFFFF" >
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="@dimen/rateme__default_padding"
+	android:orientation="vertical"
+	android:padding="@dimen/rateme__default_padding"
+	tools:background="#77FFFFFF">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:background="#FF0000" >
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		tools:background="#FF0000">
 
-        <ImageView
-            android:id="@+id/app_icon_dialog_rating"
-            android:layout_width="@dimen/rateme__icon_size"
-            android:layout_height="wrap_content"
-            android:width="@dimen/rateme__icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:layout_marginEnd="@dimen/rateme__horizontal_spacing"
-            android:layout_marginRight="@dimen/rateme__horizontal_spacing"
-            tools:background="#FFFF00"
-            android:contentDescription="@string/rateme__icon_content_description" />
+		<ImageView
+			android:id="@+id/app_icon_dialog_rating"
+			android:layout_width="@dimen/rateme__icon_size"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/rateme__horizontal_spacing"
+			android:layout_marginRight="@dimen/rateme__horizontal_spacing"
+			android:width="@dimen/rateme__icon_size"
+			android:adjustViewBounds="true"
+			android:contentDescription="@string/rateme__icon_content_description"
+			android:scaleType="fitCenter"
+			tools:background="#FFFF00"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:background="#00FF00" >
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			tools:background="#00FF00">
 
-            <TextView
-                android:id="@+id/rating_dialog_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/rateme__text_size"
-                android:text="@string/rateme__dialog_first_message" />
+			<TextView
+				android:id="@+id/rating_dialog_message"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/rateme__dialog_first_message"
+				android:textSize="@dimen/rateme__text_size"/>
 
-            <RatingBar
-                android:id="@+id/ratingBar"
-                style="?android:attr/ratingBarStyleIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/rateme__default_padding"
-                android:layout_marginTop="@dimen/rateme__default_padding"
-                android:layout_marginRight="@dimen/rateme__small_padding"
-                android:isIndicator="false"
-                android:numStars="5"
-                android:rotationX="0.3"
-                android:scaleX="1.0"
-                android:scaleY="1.0"
-                android:stepSize="0.5"
-                android:layout_gravity="center"
-                tools:background="#0000FF" />
-        </LinearLayout>
-    </LinearLayout>
+			<RatingBar
+				android:id="@+id/ratingBar"
+				style="?android:attr/ratingBarStyleIndicator"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:layout_marginBottom="@dimen/rateme__default_padding"
+				android:layout_marginRight="@dimen/rateme__small_padding"
+				android:layout_marginTop="@dimen/rateme__default_padding"
+				android:isIndicator="false"
+				android:numStars="5"
+				android:rotationX="0.3"
+				android:scaleX="1.0"
+				android:scaleY="1.0"
+				android:stepSize="0.5"
+				tools:background="#0000FF"/>
+		</LinearLayout>
+	</LinearLayout>
 
-    <LinearLayout
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+	<LinearLayout
+		style="?android:attr/buttonBarStyle"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonNeverAsk"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="@dimen/rateme__text_size"
-            android:text="@string/rateme__dialog_never" />
+		<Button
+			android:id="@+id/buttonNeverAsk"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:text="@string/rateme__dialog_never"
+			android:textSize="@dimen/rateme__text_size"/>
 
-        <Button
-            android:id="@+id/buttonNotNow"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="right|center_vertical"
-            android:textSize="@dimen/rateme__text_size"
-            android:text="@string/rateme__dialog_not_now" />
+		<Button
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/buttonOk"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="@dimen/rateme__text_size"
-            android:text="@android:string/ok" />
+		<Button
+			android:id="@+id/buttonNotNow"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:text="@string/rateme__dialog_not_now"
+			android:textSize="@dimen/rateme__text_size"/>
 
-    </LinearLayout>
+		<Button
+			android:id="@+id/buttonOk"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:text="@android:string/ok"
+			android:textSize="@dimen/rateme__text_size"/>
+
+	</LinearLayout>
 </LinearLayout>

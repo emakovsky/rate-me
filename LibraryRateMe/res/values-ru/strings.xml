@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rateme__dialog_first_title">Оценка приложения</string>
+    <string name="rateme__dialog_first_message">Как бы вы оценили наше приложение?</string>
+    <string name="rateme__dialog_first_button_rate">Оцените наше приложение в Play Store</string>
+    <string name="rateme__dialog_first_thanks">Thanks for the rating!</string>
+    <string name="rateme__dialog_feedback_message">Оценить приложение в Play Store?</string>
+    <string name="rateme__email_subject">Feedback for %1$s</string>
+    <string name="rateme__icon_content_description">Icon</string>
+
+    <string name="rateme__dialog_never">Никогда\n не спрашивать</string>
+    <string name="rateme__dialog_not_now">Не сейчас</string>
+</resources>
